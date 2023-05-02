@@ -1,0 +1,45 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'kisildalur/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'kisildalur/style.css' %}">
+<div class="container mt-3">
+    <div class="card">
+
+        {% if cpus %}
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Örgjörvar</h4>
+        </div>
+        <div class="card-body">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="card" style="display:table-cell!important">Örgjörvi</th>
+                        <th class="card" style="display:table-cell!important">Verð</th>
+                        <th class="card" style="display:table-cell!important">Flokkur</th>
+                        <!-- <th>Tegund</th> -->
+                        <!-- <th>Hraði</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in cpus %}
+                    <tr>
+                        <td class="card" style="display:table-cell!important"><a href="https://kisildalur.is/category/9/products/{{ product.id }}/">{{ product.name }}</a>
+                        </td>
+                        <td class="card" style="display:table-cell!important">{{ product.price }} kr.</td>
+                        <td class="card" style="display:table-cell!important">{{ product.group }}</td>
+                        <!-- <td>{{ product.properties.manufacturer.value }} {{ product.properties.cpu_socket.value }}</td> -->
+                        <!-- <td align="right">{{ product.properties.cpu_basespeed.value }}</td>     -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        {% else %}
+        <p>No products are available.</p>
+
+        {% endif %}
+    </div>
+
+</div>

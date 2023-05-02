@@ -1,0 +1,50 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'kisildalur/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'kisildalur/style.css' %}">
+<script>
+    if (window.location.href.match(/invalid/)) {
+        alert('Invalid regex');
+    }
+</script>
+<div class="container mt-3">
+
+    {% if cpus %}
+    <div class="card">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Örgjörvar</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+                {% for cpu in cpus %}
+                <li>
+                    <h3>{{ cpu.name }}</h3>
+                    <form action="save/{{ cpu.id }}" method="post">
+                        {% csrf_token %}
+
+                        <fieldset class="form-group">
+                            <div class="row">
+                                <legend class="col-form-label col-sm-2 pt-0">Regex</legend>
+                                <div class="col-sm-8">
+                                    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                                    <div class="form-check">
+                                        <input type="input" name="regex" id="{{ cpu.id }}"
+                                            value="{{ cpu.regex }}" class="form-95" />
+                                    </div>
+                                </div>
+                                <input type="submit" value="Save" class="btn btn-secondary">
+                            </div>
+                        </fieldset>
+
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+
+    {% else %}
+    <p>None are available.</p>
+    {% endif %}
+</div>
